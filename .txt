@@ -1,0 +1,116 @@
+Overview
+
+Team Flow/
+├── client/                    #前端
+│   ├── src/
+│   │   ├── app/              # app目录
+│   │   │   ├── (auth)/       # 认证相关页面
+│   │   │   │   ├── login/
+│   │   │   │   └── register/
+│   │   │   ├── (dashboard)/  # 主应用页面
+│   │   │   │   ├── projects/
+│   │   │   │   └── project/[id]/
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   ├── components/       # React组件
+│   │   │   ├── common/
+│   │   │   ├── auth/
+│   │   │   ├── project/
+│   │   │   └── task/
+│   │   ├── graphql/          # GraphQL相关
+│   │   │   ├── queries/
+│   │   │   ├── mutations/
+│   │   │   ├── subscriptions/
+│   │   │   └── fragments/
+│   │   ├── hooks/            # 自定义Hooks
+│   │   ├── lib/              # 工具函数
+│   │   │   ├── apollo-client.ts
+│   │   │   └── auth.ts
+│   │   ├── types/            # TypeScript类型
+│   │   └── styles/
+│   ├── public/
+│   ├── next.config.js
+│   └── package.json
+│
+├── server/                    # Node.js后端
+│   ├── src/
+│   │   ├── schema/           # GraphQL Schema
+│   │   │   ├── typeDefs/
+│   │   │   │   ├── user.ts
+│   │   │   │   ├── project.ts
+│   │   │   │   └── task.ts
+│   │   │   └── index.ts
+│   │   ├── resolvers/        # GraphQL Resolvers
+│   │   │   ├── user.resolver.ts
+│   │   │   ├── project.resolver.ts
+│   │   │   ├── task.resolver.ts
+│   │   │   └── index.ts
+│   │   ├── services/         # 业务逻辑层
+│   │   │   ├── auth.service.ts
+│   │   │   ├── user.service.ts
+│   │   │   ├── project.service.ts
+│   │   │   └── task.service.ts
+│   │   ├── middleware/       # 中间件
+│   │   │   ├── auth.middleware.ts
+│   │   │   └── error.middleware.ts
+│   │   ├── utils/            # 工具函数
+│   │   │   ├── jwt.ts
+│   │   │   └── validation.ts
+│   │   ├── prisma/           # Prisma相关
+│   │   │   ├── schema.prisma
+│   │   │   ├── migrations/
+│   │   │   └── seed.ts
+│   │   ├── config/           # 配置文件
+│   │   │   └── index.ts
+│   │   └── index.ts          # 入口文件
+│   ├── .env
+│   └── package.json
+│
+├── shared/                    # 共享代码
+│   └── types/                # 共享类型定义
+│
+└── docker-compose.yml        # Docker配置
+1.2 核心业务模块
+用户管理模块
+•	注册流程：用户提供邮箱、用户名、密码进行注册，系统验证邮箱唯一性，密码加密存储
+•	登录流程：用户通过邮箱/用户名+密码登录，系统验证身份后生成JWT令牌
+•	会话管理：基于JWT的无状态认证，支持令牌刷新和过期管理
+•	权限控制：区分普通用户和项目管理员角色
+project管理模块
+•	项目创建：登录用户可创建新项目，自动成为项目管理员
+•	项目查询：用户可查看自己参与的所有项目列表
+•	项目更新：项目管理员可编辑项目名称、描述等基本信息
+•	项目删除：仅项目管理员可删除项目（软删除机制）
+•	成员管理：项目管理员可邀请/移除项目成员
+issue管理模块
+•	任务创建：项目成员可在项目下创建任务
+•	状态流转：任务在四个状态间流转： 
+o	Backlog（待办）：新创建的任务默认状态
+o	Selected（已选择）：计划要做的任务
+o	InProgress（进行中）：正在处理的任务
+o	Done（已完成）：已完成的任务
+•	任务更新：支持修改任务标题、描述、指派人
+•	拖拽功能：支持通过拖拽改变任务状态
+1.3 业务规则
+•	每个用户可以创建多个项目
+•	每个项目可以有多个成员
+•	删除项目时级联处理相关任务
+•	用户只能查看和操作自己参与的项目
+
+ 2.1 技术栈详细说明
+前端技术
+•	Next.js 14+：React框架，支持SSR/SSG
+•	Apollo Client：GraphQL客户端，管理数据获取和缓存
+•	TypeScript：类型安全
+•	Tailwind CSS：样式框架
+•	React DnD：实现拖拽功能
+后端技术
+•	Node.js + Express：服务器运行环境
+•	Apollo Server：GraphQL服务器
+•	Prisma：ORM框架，数据库访问层
+•	Postgresql：关系型数据库
+•	bcrypt：密码加密
+•	jsonwebtoken：JWT生成与验证
+
+功能版本1
+制作一个team协作网站包括用户注册/登录，登录成功后进入主界面可以对Project进行增删查改，在每个project下面有不同的任务进度，状态分为Backlog, Selected, InProgress, Done 
