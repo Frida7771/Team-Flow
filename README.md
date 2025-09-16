@@ -53,6 +53,11 @@ Team-Flow/
 │   │   └── prisma/          # Database schema
 │   └── package.json
 ├── shared/                   # Shared types
+├── tests/                    # Test files
+│   ├── test-auth-endpoints.js
+│   ├── test-basic-graphql.js
+│   ├── test-project-creation.js
+│   └── README.md
 └── docker-compose.yml       # Development setup
 ```
 
@@ -177,6 +182,30 @@ Tasks progress through four states:
 4. **Done**: Completed tasks
 
 Users can drag and drop tasks between columns to update their status.
+
+## Testing
+
+The project includes various test files in the `tests/` directory:
+
+- **Authentication Tests**: REST API auth endpoints and GraphQL auth context
+- **GraphQL Tests**: Basic connectivity and project creation
+- **Database Tests**: Database connectivity verification
+- **General Tests**: Comprehensive functionality tests
+
+To run tests:
+
+```bash
+# Start the server first
+cd server
+npm run dev
+
+# Then run tests
+cd ../tests
+node test-auth-endpoints.js
+node test-basic-graphql.js
+```
+
+See `tests/README.md` for detailed test documentation.
 
 ## Contributing
 
