@@ -1,6 +1,6 @@
 # Team Flow - Team Collaboration Platform
 
-A modern team collaboration and project management platform built with Next.js, GraphQL, and PostgreSQL.
+A modern team collaboration and project management platform built with Next.js, Node.js, GraphQL and PostgreSQL
 
 ## Features
 
@@ -8,7 +8,7 @@ A modern team collaboration and project management platform built with Next.js, 
 - **Project Management**: Create, read, update, and delete projects
 - **Task Management**: Create and manage tasks with drag-and-drop status updates
 - **Task Status Flow**: Tasks flow through Backlog → Selected → In Progress → Done
-- **Real-time Updates**: GraphQL subscriptions for real-time collaboration
+- **Real-time Updates**: Real-time updates on project activities
 - **Responsive Design**: Modern UI built with Tailwind CSS
 
 ## Tech Stack
@@ -157,63 +157,6 @@ All protected operations require a JWT token in the Authorization header:
 ```
 Authorization: Bearer <jwt-token>
 ```
-
-### Key Mutations
-
-- `login(input: LoginInput!)`: User login
-- `register(input: RegisterInput!)`: User registration
-- `createProject(input: CreateProjectInput!)`: Create new project
-- `createTask(input: CreateTaskInput!)`: Create new task
-- `updateTask(input: UpdateTaskInput!)`: Update task status
-
-### Key Queries
-
-- `me`: Get current user info
-- `projects`: Get user's projects
-- `tasks(projectId: ID!)`: Get project tasks
-
-## Task Status Flow
-
-Tasks progress through four states:
-
-1. **Backlog**: Newly created tasks
-2. **Selected**: Tasks planned for work
-3. **In Progress**: Currently being worked on
-4. **Done**: Completed tasks
-
-Users can drag and drop tasks between columns to update their status.
-
-## Testing
-
-The project includes various test files in the `tests/` directory:
-
-- **Authentication Tests**: REST API auth endpoints and GraphQL auth context
-- **GraphQL Tests**: Basic connectivity and project creation
-- **Database Tests**: Database connectivity verification
-- **General Tests**: Comprehensive functionality tests
-
-To run tests:
-
-```bash
-# Start the server first
-cd server
-npm run dev
-
-# Then run tests
-cd ../tests
-node test-auth-endpoints.js
-node test-basic-graphql.js
-```
-
-See `tests/README.md` for detailed test documentation.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
 
 ## License
 
